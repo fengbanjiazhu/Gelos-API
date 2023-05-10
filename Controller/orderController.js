@@ -9,3 +9,13 @@ exports.getAllOrder = catchAsync(async (req, res, next) => {
     orders,
   });
 });
+
+exports.getOrder = catchAsync(async (req, res, next) => {
+  console.log(req.params.id);
+  const order = await Order.find({ _id: req.params.id });
+
+  res.status(200).json({
+    status: "success",
+    order,
+  });
+});

@@ -1,60 +1,66 @@
 const mongoose = require("mongoose");
 
-// "Order Date": "23/05/2022",
-
-// "Product Code": 1,
-
-// "Product Name": "Edible oil",
-
-// "Product Quantity": 5,
-
-// "Product Price": 90,
-
 const orderSchema = new mongoose.Schema({
-  "OrderNo.": {
+  orderNo: {
     type: Number,
     required: [true, "Order must have a price"],
     unique: true,
-  },
-  "Order Date": {
-    type: String,
   },
   orderDate: {
     type: Date,
     default: Date.now(),
   },
-  "CustNo.": {
+  custNo: {
     type: Number,
     required: [true, "Order must belong to a customer"],
   },
-  "Product Code": {
+  productCode: {
     type: Number,
     required: [true, "Product must have a price"],
   },
-  "Product Name": {
+  productName: {
     type: String,
     required: [true, "Product must have a name"],
   },
-  "Product Price": {
+  productPrice: {
     type: Number,
     required: [true, "Product must have a price"],
   },
-  "Product Quantity": {
+  productQuantity: {
     type: Number,
     required: [true, "Order must have a product quantity"],
   },
-  Total: {
+  total: {
     type: Number,
     required: [true, "Order must have a total price"],
   },
-  "ModeOf Payment": {
+  paymentMethod: {
     type: String,
     enum: {
       values: ["Cash", "Online"],
-      message: "Mode Of Payment is either: Cash or Online",
+      message: "Payment method is either: Cash or Online",
     },
   },
+  OrderCount: {
+    type: Number,
+  },
 });
+
+// orderSchema.statics.calOrderId = async function () {
+//   const stats = await this.aggregate([
+//     {
+//       $group: {
+//         _id: "$OrderCount",
+//         OrderCount: 1000 + { $sum: 1 },
+//       },
+//     },
+//   ]);
+//   console.log(stats);
+// };
+
+// orderSchema.post(/^find/, function () {
+//   Order.calOrderId();
+// });
 
 const Order = mongoose.model("Order", orderSchema);
 

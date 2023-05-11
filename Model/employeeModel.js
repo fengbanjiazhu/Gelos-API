@@ -7,6 +7,7 @@ const employeeSchema = new mongoose.Schema({
     type: Number,
     unique: true,
   },
+  EmpPhoto: { type: String, default: "default.jpg" },
   role: {
     type: String,
     required: [true, "A employee must have a role"],

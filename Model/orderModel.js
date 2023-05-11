@@ -32,7 +32,6 @@ const orderSchema = new mongoose.Schema({
   },
   total: {
     type: Number,
-    required: [true, "Order must have a total price"],
   },
   paymentMethod: {
     type: String,
@@ -46,21 +45,10 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-// orderSchema.statics.calOrderId = async function () {
-//   const stats = await this.aggregate([
-//     {
-//       $group: {
-//         _id: "$OrderCount",
-//         OrderCount: 1000 + { $sum: 1 },
-//       },
-//     },
-//   ]);
-//   console.log(stats);
-// };
-
-// orderSchema.post(/^find/, function () {
-//   Order.calOrderId();
-// });
+orderSchema.pre("save", function (next) {
+  if (!this.total) this.total = this.productPrice * this.productQuantity;
+  next();
+});
 
 const Order = mongoose.model("Order", orderSchema);
 

@@ -7,9 +7,14 @@ const employeeSchema = new mongoose.Schema({
     type: Number,
     unique: true,
   },
+  role: {
+    type: String,
+    required: [true, "A employee must have a role"],
+    enum: ["employee", "manager", "admin"],
+    default: "employee",
+  },
   name: {
     type: String,
-    // required: [true, 'A user must have a name'],
   },
   username: {
     type: String,
@@ -31,12 +36,6 @@ const employeeSchema = new mongoose.Schema({
         return el === this.password;
       },
       message: "Passwords are not the same!",
-    },
-    role: {
-      type: String,
-      required: [true, "A employee must have a role"],
-      enum: ["employee", "manager", "admin"],
-      default: "employee",
     },
   },
 });

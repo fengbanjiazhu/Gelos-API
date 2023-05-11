@@ -7,6 +7,8 @@ const app = express();
 
 const productRoute = require("./Routes/productRoutes");
 const orderRoute = require("./Routes/orderRoutes");
+const cartRoute = require("./Routes/cartRoutes");
+const employeeRoute = require("./Routes/employeeRoutes");
 
 // app.use(express.static(path.join(__dirname, "public")));
 
@@ -43,5 +45,7 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/cart", cartRoute);
+app.use("/api/employee", employeeRoute);
 
 module.exports = app;

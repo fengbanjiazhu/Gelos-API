@@ -32,10 +32,16 @@ const employeeSchema = new mongoose.Schema({
       },
       message: "Passwords are not the same!",
     },
+    role: {
+      type: String,
+      required: [true, "A employee must have a role"],
+      enum: ["employee", "manager", "admin"],
+      default: "employee",
+    },
   },
 });
 
-userSchema.pre("save", async function (next) {
+employeeSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   // hash the password with cost of 12
   this.password = await bcrypt.hash(this.password, 12);
@@ -45,7 +51,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.correctPassword = async function (typedInPassword, dbSavedPassword) {
+employeeSchema.methods.correctPassword = async function (typedInPassword, dbSavedPassword) {
   return await bcrypt.compare(typedInPassword, dbSavedPassword);
 };
 

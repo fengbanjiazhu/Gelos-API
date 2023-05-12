@@ -24,3 +24,34 @@ exports.createEmployee = catchAsync(async (req, res, next) => {
     employee,
   });
 });
+
+exports.updateEmployee = catchAsync(async (req, res, next) => {
+  let updatedEmployee;
+  if (req.query.updateMany === "true") {
+    delete req.query.updateMany;
+    updatedEmployee = await Employee.updateMany(req.query, { $set: req.body });
+  } else {
+    updatedEmployee = await Employee.findOneAndUpdate(req.query, { $set: req.body });
+  }
+
+  res.status(200).json({
+    status: "success",
+    updatedEmployee,
+  });
+});
+
+exports.deleteEmployee = catchAsync(async (req, res, next) => {
+  console.log(req.query, req.body);
+
+  if (req.query.deleteMany === "true") {
+    delete req.query.deleteMany;
+    await Employee.deleteMany(req.query);
+  } else {
+    await Employee.deleteOne(req.query);
+  }
+
+  res.status(200).json({
+    status: "success",
+    message: "data successful deleted",
+  });
+});

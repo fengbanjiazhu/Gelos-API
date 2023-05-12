@@ -8,7 +8,12 @@ router
   .route("/")
   .get(authController.protect, authController.restrictTo("admin"), employeeController.getEmployee)
   .post(employeeController.createEmployee)
-  .patch();
+  .patch(employeeController.updateEmployee)
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
+    employeeController.deleteEmployee
+  );
 
 router.route("/login").post(authController.login);
 

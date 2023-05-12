@@ -3,7 +3,11 @@ const cartController = require("../Controller/cartController");
 
 const router = express.Router();
 
-router.route("/").get(cartController.getCart);
-// router.route("/:id").get(orderController.getOrder);
+router
+  .route("/")
+  .get(cartController.getCart)
+  .post(cartController.createCart)
+  .patch(cartController.updateCart)
+  .delete(cartController.deleteCart);
 
 module.exports = router;

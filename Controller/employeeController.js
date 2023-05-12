@@ -15,7 +15,6 @@ exports.createEmployee = catchAsync(async (req, res, next) => {
     ...req.body,
     role: "employee",
   };
-  console.log(req.body);
 
   const employee = await Employee.create(dataFilter);
 

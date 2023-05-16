@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(cartController.getCart)
+  .get(cartController.getAllCart)
   .post(cartController.createCart)
   .patch(cartController.updateCart)
   .delete(cartController.deleteCart);

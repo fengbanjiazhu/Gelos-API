@@ -2,6 +2,7 @@ const express = require("express");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 const cors = require("cors");
+// const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
 
@@ -43,8 +44,10 @@ app.use("/api", limiter);
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
+// checking req.query middleware
 app.use(function (req, res, next) {
-  console.log(req.query);
+  console.log("Query:", req.query);
+  console.log("Params:", req.params);
   next();
 });
 

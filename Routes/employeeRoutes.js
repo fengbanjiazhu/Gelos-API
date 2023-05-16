@@ -23,8 +23,8 @@ router
     employeeController.deleteEmployee
   );
 
-router.route("/login").post(authController.login);
-
 router.route("/Me").patch(authController.protect, employeeController.updateMe);
+
+router.route("/login").post(authController.login);
 
 module.exports = router;

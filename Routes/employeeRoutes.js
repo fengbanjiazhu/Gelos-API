@@ -6,9 +6,17 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(authController.protect, authController.restrictTo("admin"), employeeController.getEmployee)
+  .get(
+    authController.protect,
+    authController.restrictTo("admin"),
+    employeeController.getAllEmployee
+  )
   .post(employeeController.createEmployee)
-  .patch(employeeController.updateEmployee)
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin"),
+    employeeController.updateEmployee
+  )
   .delete(
     authController.protect,
     authController.restrictTo("admin"),
@@ -16,5 +24,7 @@ router
   );
 
 router.route("/login").post(authController.login);
+
+router.route("/Me").patch(authController.protect, employeeController.updateMe);
 
 module.exports = router;

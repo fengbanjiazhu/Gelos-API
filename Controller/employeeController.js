@@ -1,14 +1,8 @@
 const Employee = require("../Model/employeeModel");
 const catchAsync = require("../Utils/catchAsync");
+const centralController = require("./centreController");
 
-exports.getEmployee = catchAsync(async (req, res, next) => {
-  const employee = await Employee.find(req.query);
-
-  res.status(200).json({
-    status: "success",
-    employee,
-  });
-});
+exports.getAllEmployee = centralController.getAll(Employee);
 
 exports.createEmployee = catchAsync(async (req, res, next) => {
   const dataFilter = {
@@ -39,9 +33,18 @@ exports.updateEmployee = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteEmployee = catchAsync(async (req, res, next) => {
-  console.log(req.query, req.body);
+exports.updateMe = catchAsync(async (req, res, next) => {
+  updatedEmployee = await Employee.findByIdAndUpdate(req.user._id, { $set: req.body });
+  if (updatedEmployee.length < 1)
+    return next(new Error("Employee can only update their own profile"));
 
+  res.status(200).json({
+    status: "success",
+    updatedEmployee,
+  });
+});
+
+exports.deleteEmployee = catchAsync(async (req, res, next) => {
   if (req.query.deleteMany === "true") {
     delete req.query.deleteMany;
     await Employee.deleteMany(req.query);

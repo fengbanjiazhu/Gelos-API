@@ -6,12 +6,20 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(productController.getAllProduct)
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "manager"),
+    productController.getAllProduct
+  )
   .post(productController.createProduct)
-  .patch(productController.updateProduct)
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin", "manager"),
+    productController.updateProduct
+  )
   .delete(
     authController.protect,
-    authController.restrictTo("admin"),
+    authController.restrictTo("admin", "manager"),
     productController.deleteProduct
   );
 

@@ -3,6 +3,7 @@ const catchAsync = require("../Utils/catchAsync");
 const centralController = require("./centreController");
 
 exports.getAllEmployee = centralController.getAll(Employee);
+exports.getEmployee = centralController.getOne(Employee);
 
 exports.createEmployee = catchAsync(async (req, res, next) => {
   const dataFilter = {

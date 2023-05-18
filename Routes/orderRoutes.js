@@ -10,6 +10,7 @@ router
   .post(orderController.createOrder)
   .patch(orderController.updateOrder)
   .delete(authController.protect, authController.restrictTo("admin"), orderController.deleteOrder);
+
 router.route("/:id").get(orderController.getOrder);
 
 module.exports = router;

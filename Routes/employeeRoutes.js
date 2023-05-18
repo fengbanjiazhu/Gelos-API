@@ -27,4 +27,6 @@ router.route("/Me").patch(authController.protect, employeeController.updateMe);
 
 router.route("/login").post(authController.login);
 
+router.route("/:id").get(employeeController.getEmployee);
+
 module.exports = router;

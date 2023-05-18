@@ -34,6 +34,14 @@ exports.updateEmployee = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getMe = catchAsync(async (req, res, next) => {
+  currentEmployee = await Employee.findById(req.user._id);
+  res.status(200).json({
+    status: "success",
+    currentEmployee,
+  });
+});
+
 exports.updateMe = catchAsync(async (req, res, next) => {
   updatedEmployee = await Employee.findByIdAndUpdate(req.user._id, { $set: req.body });
   if (updatedEmployee.length < 1)

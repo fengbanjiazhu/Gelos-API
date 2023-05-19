@@ -15,6 +15,12 @@ router
     orderController.deleteOrder
   );
 
-router.route("/:id").get(orderController.getOrder);
+router
+  .route("/:id")
+  .get(
+    authController.protect,
+    authController.restrictTo("admin", "manager"),
+    orderController.getOrder
+  );
 
 module.exports = router;

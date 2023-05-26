@@ -25,4 +25,6 @@ router
 
 router.route("/:id").get(productController.getProduct);
 
+// router.route("/priceGoUp").patch(productController.updatePrice);
+
 module.exports = router;

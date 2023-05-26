@@ -48,6 +48,7 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(function (req, res, next) {
   console.log("Query:", req.query);
   console.log("Params:", req.params);
+  console.log("Body:", req.body);
   next();
 });
 

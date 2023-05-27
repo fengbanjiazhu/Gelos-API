@@ -9,21 +9,17 @@ exports.deleteProduct = centralController.deleteData(Product);
 
 const catchAsync = require("../Utils/catchAsync");
 
-// exports.updatePrice = (Product) =>
-//   catchAsync(async (req, res, next) => {
-//     let updatedData;
-//     if (req.query.updateMany === "true") {
-//       delete req.query.updateMany;
-//       updatedData = await Product.updateMany(
-//         {},
-//         {
-//           $set: { Product_price: Product_price + 1 },
-//         }
-//       );
-//     }
+exports.updatePrice = catchAsync(async (req, res, next) => {
+  let updatedData;
+  if (req.query.updateMany === "true") {
+    delete req.query.updateMany;
+    updatedData = await Product.updateMany(req.query, { $inc: req.body });
+  } else {
+    updatedData = await Product.findOneAndUpdate(req.query, { $inc: req.body });
+  }
 
-//     res.status(200).json({
-//       status: "success",
-//       updatedData,
-//     });
-//   });
+  res.status(200).json({
+    status: "success",
+    updatedData,
+  });
+});

@@ -15,7 +15,7 @@ const cartSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
     // expires in 1 day
-    // expires: "1d",
+    expires: 86400,
   },
 });
 

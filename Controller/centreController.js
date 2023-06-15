@@ -41,8 +41,11 @@ exports.updateData = (Model) =>
       updatedData = await Model.findOneAndUpdate(req.query, { $set: req.body });
     }
 
+    const modifyDate = Date.now();
+
     res.status(200).json({
       status: "success",
+      modifyDate,
       updatedData,
     });
   });

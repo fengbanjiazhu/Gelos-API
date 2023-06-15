@@ -16,8 +16,10 @@ const employeeRoute = require("./Routes/employeeRoutes");
 // solving CORS issue
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    credentials: true,
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   })
 );
 

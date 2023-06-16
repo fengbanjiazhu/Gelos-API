@@ -45,6 +45,11 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
+orderSchema.pre(/^find/, function (next) {
+  this.sort({ orderDate: -1 });
+  next();
+});
+
 orderSchema.pre("save", function (next) {
   if (!this.total) this.total = this.productPrice * this.productQuantity;
   next();

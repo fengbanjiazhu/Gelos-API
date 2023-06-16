@@ -24,6 +24,11 @@ const productSchema = new mongoose.Schema({
   },
 });
 
+productSchema.pre(/^find/, function (next) {
+  this.sort({ Product_price: 1 });
+  next();
+});
+
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
